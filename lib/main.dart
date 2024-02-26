@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:language_code/language_code.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: [
         const Locale('en'), // English
         const Locale('ar'), // Arabic
+        const Locale('fr'), // French
       ],
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -74,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final currentLocale = Localizations.localeOf(context);
     if (currentLocale.languageCode == 'en') {
       MyApp.setLocale(context, const Locale('ar'));
+    } else if (currentLocale.languageCode == 'ar') {
+      MyApp.setLocale(context, const Locale('fr'));
     } else {
       MyApp.setLocale(context, const Locale('en'));
     }
@@ -103,7 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text(
                 Localizations.localeOf(context).languageCode == 'en'
                     ? 'Change to Arabic'
-                    : 'تغيير إلى الإنجليزية',
+                    : Localizations.localeOf(context).languageCode == 'ar'
+                        ? 'Changer en français'
+                        : 'Change to English',
                 style: const TextStyle(color: Colors.deepPurple),
               ),
             ),
